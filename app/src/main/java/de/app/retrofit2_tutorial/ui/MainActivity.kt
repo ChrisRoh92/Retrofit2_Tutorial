@@ -31,8 +31,10 @@ class MainActivity : AppCompatActivity() {
         initRecyclerView()
         initControlElements()
 
-        TODO("init ViewModel + create Observer")
-
+        viewModel = ViewModelProvider(this,defaultViewModelProviderFactory).get(MainViewModel::class.java)
+        viewModel.getLiveListOfUniversities().observe(this){
+            adapter.updateContent(it)
+        }
     }
 
 

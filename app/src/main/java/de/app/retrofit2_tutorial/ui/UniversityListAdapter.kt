@@ -34,7 +34,10 @@ class UniversityListAdapter(var unis: List<University>, var callback: (url: Stri
     }
 
     override fun onBindViewHolder(holder: UniversityListAdapter.ViewHolder, position: Int) {
-        TODO("Please insert logic")
+        val uni = unis[position]
+        holder.tvName.text = uni.name
+        holder.tvCountry.text = uni.country
+        holder.tvWebPage.text = uni.webPages[0]
     }
 
     override fun getItemCount(): Int {

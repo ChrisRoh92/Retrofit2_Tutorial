@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import de.app.retrofit2_tutorial.data.RetrofitInstance
 import de.app.retrofit2_tutorial.data.University
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,7 +19,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // Requests:
     fun getUniversitiesByCountry(country: String) {
-        TODO("call interface method with coroutines")
+
+        viewModelScope.launch {
+            val response = RetrofitInstance.api.getUniversitiesByCountry(country)
+            if (response.isSuccessful) {
+                Log.d("Test", "Succesful")
+                listOfUniversities.value = response.body()
+            } else {
+                Log.d("Test", "Not Succesful: ${response.code()}")
+            }
+        }
     }
 
 
